@@ -40,11 +40,11 @@
 				
 
 ## 服务源码框架
-	<module>orion-common</module>  		公共包
-        <module>orion-register</module> 	注册中心	
-        <module>orion-protocol</module>
-        <module>orion-ribbon</module>
-        <module>orion-archer</module>
-        <module>orion-monitor</module>
-        <module>orion-client</module>
-        <module>orion-server</module>
+        <module>orion-common</module>       公共包
+        <module>orion-register</module>     注册中心
+        <module>orion-protocol</module>     网络通信协议包
+        <module>orion-ribbon</module>       负载均衡算法
+        <module>orion-archer</module>       远程服务调度框架
+        <module>orion-monitor</module>      链路监控
+        <module>orion-client</module>       客户端测试包
+        <module>orion-server</module>       服务端测试包
