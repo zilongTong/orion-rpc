@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.orion</groupId>
+    <artifactId>orion-rpc</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>orion-common</module>
+        <module>orion-register</module>
+        <module>orion-protocol</module>
+        <module>orion-ribbon</module>
+        <module>orion-archer</module>
+        <module>orion-monitor</module>
+        <module>orion-client</module>
+        <module>orion-server</module>
+    </modules>
+
+
+</project>
