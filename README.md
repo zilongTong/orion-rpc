@@ -1,14 +1,14 @@
 # orion-rpc
 掌门教育自研微服务框架
 # 支持可插拔的客户端服务端注解
-# 支持三种负载设计：
+## 支持三种负载设计：
     @ZmTarget注解定向负载 (这个是项目需要，有被点业务绑架的需求，架构服务业务嘛)
     客户端自定义负载策略 balanceStrategy,继承统一的接口规范(这个用来做灰度soeasy,缺点就是开发者需要关注注册中心，不符合中间件屏蔽底层细节的初衷)
     默认的负载均衡策略：
 				随机算法
 				轮询算法   //TODO
 				一致性hash算法，支持可配置虚拟节点数   //TODO
-# 支持可插拔的注册中心
+## 支持可插拔的注册中心
 			zmlearn-register-zk-starter   	   cp 	高	
 			zmlearn-register-redis-starter   	ap? (这玩意也能做注册中心?我这里只是上报节点状态，严格意义不算)  	高	
 			zmlearn-register-etcd-starter   	cp	高	TODO
