@@ -39,7 +39,7 @@
 				支持服务降级mock，服务隔离，服务治理 //TODO
 				
 
-## 服务源码框架
+## 中间件源码架构设计
         <module>orion-common</module>       公共包
         <module>orion-register</module>     注册中心
         <module>orion-protocol</module>     网络通信协议包
