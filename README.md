@@ -37,3 +37,14 @@
 				支持字节码沾包拆包
 				支持空闲策略的心跳
 				支持服务降级mock，服务隔离，服务治理 //TODO
+				
+
+## 中间件源码架构设计
+        <module>orion-common</module>       公共包
+        <module>orion-register</module>     注册中心
+        <module>orion-protocol</module>     网络通信协议包
+        <module>orion-ribbon</module>       负载均衡算法
+        <module>orion-archer</module>       远程服务调度框架
+        <module>orion-monitor</module>      链路监控
+        <module>orion-client</module>       客户端测试包
+        <module>orion-server</module>       服务端测试包
