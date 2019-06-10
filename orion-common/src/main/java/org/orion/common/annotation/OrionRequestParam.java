@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * @ClassName ZmRequestBody
+ * @ClassName OrionRequestParam
  * @Author Leo
  * @Description //TODO
- * @Date: 2019/5/25 14:48
+ * @Date: 2019/5/29 16:38
  **/
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface ZmRequestBody {
+public @interface OrionRequestParam {
 }

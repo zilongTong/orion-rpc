@@ -6,11 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.orion.common.BizException;
 import org.orion.common.HttpRequest;
 import org.orion.common.RequestMethod;
-import org.orion.common.annotation.ZmRequestBody;
-import org.orion.common.annotation.ZmTarget;
+import org.orion.common.annotation.OrionRequestBody;
+import org.orion.common.annotation.OrionTarget;
 import org.orion.loadbalance.ILoadBalanceStrategy;
 import org.orion.utils.OkHttpUtil;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -42,10 +43,10 @@ public class HttpExecutor extends LoadBalanceTemplateAdaptor<HttpRequest> {
         for (int i = 0; i < ps.length; i++) {
             Annotation a = annotations[i][0];
             Object o = ps[i];
-            if (a instanceof ZmTarget) {
+            if (a instanceof OrionTarget) {
                 target = o.toString();
             }
-            if (a instanceof ZmRequestBody) {
+            if (a instanceof OrionRequestBody) {
                 jsonParam = o;
             }
         }
@@ -54,7 +55,7 @@ public class HttpExecutor extends LoadBalanceTemplateAdaptor<HttpRequest> {
             throw new BizException("no right server mapping url");
         }
         if (target == null && strategy != null) {
-            target = strategy.loadBalance();
+            target = strategy.loadBalance(request.getServerId());
         }
         if (StringUtils.isEmpty(target)) {
             throw new BizException("no available server found");
@@ -64,7 +65,7 @@ public class HttpExecutor extends LoadBalanceTemplateAdaptor<HttpRequest> {
         Response result = null;
         if (requestMethod.name().equalsIgnoreCase(RequestMethod.POST.name())) {
             try {
-                result = OkHttpUtil.postJsonParams(String.format("http://%s:8080%s", target, mappingUrl), jsonParam);
+                result = OkHttpUtil.postJsonParams(String.format("http://%s:8081%s", target, mappingUrl), jsonParam);
             } catch (Exception e) {
                 log.error("OkHttpUtil execute POST Exception", e);
             }
@@ -72,14 +73,19 @@ public class HttpExecutor extends LoadBalanceTemplateAdaptor<HttpRequest> {
             try {
 //                CommandContext commandContext = new CommandContext();
 //                Response response = OkHttpUtil.client(new OkHttpRequestBuilder(commandContext).toRequest());
-                result = OkHttpUtil.get(String.format("http://%s:8080%s", target, mappingUrl), objectToMap(jsonParam));
+                result = OkHttpUtil.get(String.format("http://%s:8081%s", target, mappingUrl), objectToMap(jsonParam));
             } catch (Exception e) {
                 log.error("OkHttpUtil execute GET Exception", e);
             }
         } else {
             throw new BizException("RequestMethod support POST GET only");
         }
-        return result;
+        try {
+            return result.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Map<String, String> objectToMap(Object obj) throws Exception {

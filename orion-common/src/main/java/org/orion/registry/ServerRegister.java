@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.orion.common.VMState;
 import org.orion.utils.IPUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @ClassName ServerRegister
@@ -15,9 +16,11 @@ import org.springframework.beans.factory.InitializingBean;
 @Slf4j
 public class ServerRegister implements InitializingBean {
 
+    @Value("${server.name}")
+    private String serverName;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        RegisterCenter.register(VMState.IDLE, "0", IPUtils.getIpAddress());
+        RegisterCenter.register(serverName, "0", IPUtils.getIpAddress());
     }
 }

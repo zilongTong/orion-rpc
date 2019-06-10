@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 @Data
 public class HttpRequest {
     private String requestId;
+    private String serverId;
     private Method method;
     private RequestMethod requestMethod;
     private String mappingUrl;

@@ -1,14 +1,14 @@
 package org.orion.proxy;
 
 
-
 import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.proxy.InvocationHandler;
 import net.sf.cglib.proxy.Proxy;
 import org.orion.common.BizException;
 import org.orion.common.HttpRequest;
 import org.orion.common.RequestMethod;
-import org.orion.common.annotation.ZmRequestRouter;
+import org.orion.common.annotation.OrionRemoteClient;
+import org.orion.common.annotation.OrionRequestRouter;
 import org.orion.loadbalance.ILoadBalanceStrategy;
 import org.orion.loadbalance.RandomLoadBalanceStrategy;
 import org.orion.protocol.LoadBalanceTemplateAdaptor;
@@ -49,14 +49,18 @@ public class RemoteProxy implements InvocationHandler, ApplicationContextAware {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        ZmRequestRouter requestRouting = method.getAnnotation(ZmRequestRouter.class);
+        HttpRequest request = new HttpRequest();
+        OrionRequestRouter requestRouting = method.getAnnotation(OrionRequestRouter.class);
+        OrionRemoteClient zmRemoteClient = this.interfaceClass.getAnnotation(OrionRemoteClient.class);
+        if (zmRemoteClient != null) {
+            request.setServerId(zmRemoteClient.serverId());
+        }
         if (requestRouting == null) {
             throw new BizException("no RequestRouter Exception");
         }
         String[] values = requestRouting.value();
         RequestMethod[] requestMethods = requestRouting.method();
         LoadBalanceTemplateAdaptor executor = RemoteExecutorFactory.protocol(ProtocolEnum.HTTP);
-        HttpRequest request = new HttpRequest();
         request.setRequestMethod(requestMethods[0]);
         request.setMethod(method);
         request.setParameters(args);

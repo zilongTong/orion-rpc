@@ -130,9 +130,9 @@ public class OkHttpUtil {
         } catch (Exception e) {
             log.error("okhttp3 error, url:{}", request.url().toString(), e);
         } finally {
-            if (response != null) {
-                response.close();
-            }
+//            if (response != null) {
+//                response.close();
+//            }
         }
         return null;
     }

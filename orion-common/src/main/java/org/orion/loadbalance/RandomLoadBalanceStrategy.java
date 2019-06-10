@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName RandomLoadBalanceStrategy
+ * 权重随机算法
  * @Author Leo
  * @Description //TODO
  * @Date: 2019/5/30 19:38
@@ -40,7 +41,7 @@ public class RandomLoadBalanceStrategy implements ILoadBalanceStrategy, Initiali
 
     @Override
     public void afterPropertiesSet() throws Exception {
-//        nodeCacheWatcher();
+        nodeCacheWatcher();
     }
 
     public void nodeCacheWatcher() {
@@ -90,22 +91,22 @@ public class RandomLoadBalanceStrategy implements ILoadBalanceStrategy, Initiali
         });
     }
 
-    public ConcurrentHashMap<String, String> discovery(VMState state) {
+    public ConcurrentHashMap<String, String> discovery(String serverName) {
         try {
-            ConcurrentHashMap<String, String> cacheMap = nodeCacheMap.get(state.name());
+            ConcurrentHashMap<String, String> cacheMap = nodeCacheMap.get(serverName);
             if (MapUtils.isNotEmpty(cacheMap)) {
                 return cacheMap;
             }
-            return fetchNodeFromRegister(state);
+            return fetchNodeFromRegister(serverName);
         } catch (Exception e) {
             log.error("worker discover failed ", e);
         }
         return new ConcurrentHashMap<>();
     }
 
-    public String idleWorker() {
+    public String idleWorker(String serverName) {
         try {
-            Map<String, String> map = discovery(VMState.IDLE);
+            Map<String, String> map = discovery(serverName);
             Iterator<Map.Entry<String, String>> iter = map.entrySet().iterator();
             Integer limit = LoadConfig.WEIGHT_LIMIT;
             String temp = null;
@@ -126,9 +127,9 @@ public class RandomLoadBalanceStrategy implements ILoadBalanceStrategy, Initiali
         return null;
     }
 
-    private ConcurrentHashMap<String, String> fetchNodeFromRegister(VMState state) {
+    private ConcurrentHashMap<String, String> fetchNodeFromRegister(String serverName) {
         try {
-            String rootPath = ZKconfig.ZK_REGISTER_PATH + "/" + state.name();
+            String rootPath = ZKconfig.ZK_REGISTER_PATH + "/" + serverName;
             List<String> strings = CuratorManager.getChildren(rootPath);
             if (!CollectionUtils.isEmpty(strings)) {
                 ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>(strings.size());
@@ -155,23 +156,30 @@ public class RandomLoadBalanceStrategy implements ILoadBalanceStrategy, Initiali
         if (MapUtils.isNotEmpty(nodeCacheMap)) {
             nodeCacheMap.clear();
         }
-        ConcurrentHashMap<String, String> full_nodeCacheMap = fetchNodeFromRegister(VMState.FULL);
-        ConcurrentHashMap<String, String> cold_nodeCacheMap = fetchNodeFromRegister(VMState.COLD);
-        ConcurrentHashMap<String, String> idle_nodeCacheMap = fetchNodeFromRegister(VMState.IDLE);
-        nodeCacheMap.put(VMState.COLD.name(), cold_nodeCacheMap);
-        nodeCacheMap.put(VMState.IDLE.name(), idle_nodeCacheMap);
-        nodeCacheMap.put(VMState.FULL.name(), full_nodeCacheMap);
+        List<String> strings = CuratorManager.getChildren(ZKconfig.ZK_REGISTER_PATH);
+        if (!CollectionUtils.isEmpty(strings)) {
+            strings.forEach(i -> {
+                try {
+                    ConcurrentHashMap<String, String> map = fetchNodeFromRegister(ZKconfig.ZK_REGISTER_PATH + "/" + i);
+                    if (MapUtils.isNotEmpty(map)) {
+                        nodeCacheMap.put(i, map);
+                    }
+                } catch (Exception e) {
+                    log.error(e.getMessage(), e);
+                }
+            });
+        }
     }
 
     public void clearData() {
-        nodeCacheMap.get(VMState.COLD.name()).clear();
-        nodeCacheMap.get(VMState.IDLE.name()).clear();
-        nodeCacheMap.get(VMState.FULL.name()).clear();
+        if (MapUtils.isNotEmpty(nodeCacheMap)) {
+            nodeCacheMap.clear();
+        }
     }
 
 
     @Override
-    public String loadBalance() {
-        return idleWorker();
+    public String loadBalance(String serverName) {
+        return idleWorker(serverName);
     }
 }

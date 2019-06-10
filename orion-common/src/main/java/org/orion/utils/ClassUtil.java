@@ -1,7 +1,7 @@
 package org.orion.utils;
 
-import com.zhangmen.common.annotation.ZmRemoteClient;
 import lombok.extern.slf4j.Slf4j;
+import org.orion.common.annotation.OrionRemoteClient;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -41,7 +41,7 @@ public class ClassUtil {
         for (Class<?> clazz : clazzs) {
 
             // 获取类上的注解
-            ZmRemoteClient client = clazz.getAnnotation(ZmRemoteClient.class);
+            OrionRemoteClient client = clazz.getAnnotation(OrionRemoteClient.class);
             if (client != null) {
                 System.out.println(client.serverId());
                 System.out.println(client.value());

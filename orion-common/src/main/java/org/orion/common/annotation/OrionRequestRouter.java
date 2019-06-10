@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * @ClassName ZmRequestRouter
+ * @ClassName OrionRequestRouter
  * @Author Leo
  * @Description //TODO
  * @Date: 2019/5/22 15:36
@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface ZmRequestRouter {
+public @interface OrionRequestRouter {
     String name() default "";
 
     @AliasFor("path")

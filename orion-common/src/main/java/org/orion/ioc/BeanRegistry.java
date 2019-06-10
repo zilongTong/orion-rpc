@@ -1,9 +1,8 @@
 package org.orion.ioc;
 
 
-
 import lombok.extern.slf4j.Slf4j;
-import org.orion.common.annotation.ZmRemoteClient;
+import org.orion.common.annotation.OrionRemoteClient;
 import org.orion.proxy.ProxyFactory;
 import org.orion.utils.ClassUtil;
 import org.springframework.beans.BeansException;
@@ -24,7 +23,7 @@ import java.util.Set;
 @Slf4j
 public class BeanRegistry implements BeanDefinitionRegistryPostProcessor {
 
-    private static final String ZMLEARM = "com.zhangmen";
+    private static final String ZMLEARM = "org.orion";
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -36,7 +35,7 @@ public class BeanRegistry implements BeanDefinitionRegistryPostProcessor {
         // 需要被代理的接口
         Set<Class<?>> clazzs = ClassUtil.getClasses(ZMLEARM);
         clazzs.forEach(cls -> {
-            ZmRemoteClient client = cls.getAnnotation(ZmRemoteClient.class);
+            OrionRemoteClient client = cls.getAnnotation(OrionRemoteClient.class);
             if (client != null) {
                 BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(cls);
                 GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();

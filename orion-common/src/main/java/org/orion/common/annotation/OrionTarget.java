@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * @ClassName ZmTarget
+ * @ClassName OrionTarget
  * @Author Leo
  * @Description //TODO
  * @Date: 2019/5/25 14:47
@@ -14,5 +14,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface ZmTarget {
+public @interface OrionTarget {
 }

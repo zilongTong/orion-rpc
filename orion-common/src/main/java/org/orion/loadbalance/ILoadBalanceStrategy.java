@@ -7,5 +7,5 @@ package org.orion.loadbalance;
  * @Date: 2019/5/23 14:31
  **/
 public interface ILoadBalanceStrategy {
-    String loadBalance();
+    String loadBalance(String serverName);
 }

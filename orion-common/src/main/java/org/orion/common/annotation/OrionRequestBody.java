@@ -5,17 +5,14 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * @ClassName ZmRpc
+ * @ClassName OrionRequestBody
  * @Author Leo
  * @Description //TODO
- * @Date: 2019/5/22 13:59
+ * @Date: 2019/5/25 14:48
  **/
-@Target({ElementType.TYPE})
+@Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface ZmRemoteClient {
-    String value() default "";
-
-    String serverId() default "";
+public @interface OrionRequestBody {
 }
