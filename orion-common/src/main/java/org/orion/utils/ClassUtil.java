@@ -1,7 +1,6 @@
 package org.orion.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.orion.common.annotation.OrionRemoteClient;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -22,47 +21,9 @@ import java.util.jar.JarFile;
  * @Description //TODO
  * @Date: 2019/5/24 10:48
  **/
-@Slf4j
 public class ClassUtil {
 
-    public static void main(String[] args) {
 
-        // 包下面的类
-        Set<Class<?>> clazzs = getClasses("com.zhangmen");
-        if (clazzs == null) {
-            return;
-        }
-
-        System.out.printf(clazzs.size() + "");
-        // 某类或者接口的子类
-        Set<Class<?>> inInterface = getByInterface(Object.class, clazzs);
-        System.out.printf(inInterface.size() + "");
-
-        for (Class<?> clazz : clazzs) {
-
-            // 获取类上的注解
-            OrionRemoteClient client = clazz.getAnnotation(OrionRemoteClient.class);
-            if (client != null) {
-                System.out.println(client.serverId());
-                System.out.println(client.value());
-                System.out.println(clazz.getClasses());
-            }
-//            for (Annotation anno : annos) {
-//                System.out.println(clazz.getSimpleName().concat(".").concat(anno.annotationType().getSimpleName()));
-//            }
-
-            // 获取方法上的注解
-//            Method[] methods = clazz.getDeclaredMethods();
-//            for (Method method : methods) {
-//                Annotation[] annotations = method.getDeclaredAnnotations();
-//                for (Annotation annotation : annotations) {
-//                    System.out.println(clazz.getSimpleName().concat(".").concat(method.getName()).concat(".")
-//                            .concat(annotation.annotationType().getSimpleName()));
-//                }
-//            }
-        }
-
-    }
 
     /**
      * 从包package中获取所有的Class
@@ -91,7 +52,6 @@ public class ClassUtil {
                 String protocol = url.getProtocol();
                 // 如果是以文件的形式保存在服务器上
                 if ("file".equals(protocol)) {
-                    log.info("file类型的扫描");
                     // 获取包的物理路径
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
                     // 以文件的方式扫描整个包下的文件 并添加到集合中
@@ -99,7 +59,6 @@ public class ClassUtil {
                 } else if ("jar".equals(protocol)) {
                     // 如果是jar包文件
                     // 定义一个JarFile
-                    log.info("jar类型的扫描");
                     JarFile jar;
                     try {
                         // 获取jar
@@ -193,7 +152,6 @@ public class ClassUtil {
                     classes.add(
                             Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
                 } catch (ClassNotFoundException e) {
-                    log.error("添加用户自定义视图类错误 找不到此类的.class文件", e);
 //                    e.printStackTrace();
                 }
             }
@@ -227,7 +185,6 @@ public class ClassUtil {
                     }
                 }
             } catch (Exception e) {
-                log.error("获取指定接口的实现类出现异常", e);
             }
         }
         return classes;

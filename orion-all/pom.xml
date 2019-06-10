@@ -5,16 +5,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>orion-server</artifactId>
+    <artifactId>orion-all</artifactId>
     <groupId>org.orion</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.20.RELEASE</version>
-    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,26 +20,34 @@
     <dependencies>
         <dependency>
             <groupId>org.orion</groupId>
-            <artifactId>orion-all</artifactId>
+            <artifactId>orion-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- Web 依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.orion</groupId>
+            <artifactId>orion-archer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-            <version>1.7.0.RELEASE</version>
+            <groupId>org.orion</groupId>
+            <artifactId>orion-monitor</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- 测试依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.orion</groupId>
+            <artifactId>orion-protocol</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.orion</groupId>
+            <artifactId>orion-register</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.orion</groupId>
+            <artifactId>orion-ribbon</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

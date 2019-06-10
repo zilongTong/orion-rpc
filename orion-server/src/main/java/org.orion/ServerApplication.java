@@ -1,7 +1,7 @@
 package org.orion;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
-import org.orion.common.annotation.EnableRegisterClient;
+import org.orion.registry.EnableOrionClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @EnableSwagger2Doc
 @SpringBootApplication
-@EnableRegisterClient
+@EnableOrionClient
 public class ServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);

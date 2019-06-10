@@ -16,7 +16,6 @@ import java.util.StringTokenizer;
  * @Description //TODO
  * @Date: 2019/5/21 14:23
  **/
-@Slf4j
 public class MonitorComponent {
     private static final int CPUTIME = 30;
 
@@ -122,7 +121,6 @@ public class MonitorComponent {
         try {
             process = Runtime.getRuntime().exec("top");
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
         }
         InputStream inputStream = process.getInputStream();
         InputStreamReader reader = new InputStreamReader(inputStream);
@@ -153,7 +151,6 @@ public class MonitorComponent {
             if (br != null)
                 br.close();
         } catch (IOException ioe) {
-            log.error(ioe.getMessage(), ioe);
         }
     }
 
