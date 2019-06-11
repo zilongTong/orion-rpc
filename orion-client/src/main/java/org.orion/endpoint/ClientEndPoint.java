@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
  **/
 @RestController
 public class ClientEndPoint {
+
     @Autowired
     private OrionClient client;
 
-    @RequestMapping(value = "/book", method = RequestMethod.GET)
     @ResponseBody
     public String sayHello(String param) {
         String result = client.record(param);
