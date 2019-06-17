@@ -9,11 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>orion-registy-zk-starter</artifactId>
+    <artifactId>orion-registry-zk-starter</artifactId>
     <groupId>org.orion</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>orion-registy-zk-starter</name>
+    <name>orion-registry-zk-starter</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
