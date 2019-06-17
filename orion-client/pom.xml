@@ -25,7 +25,7 @@
     <dependencies>
         <dependency>
             <groupId>org.orion</groupId>
-            <artifactId>orion-all</artifactId>
+            <artifactId>orion-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- Web 依赖 -->

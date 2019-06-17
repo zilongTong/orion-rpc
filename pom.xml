@@ -8,6 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>orion-starter</module>
         <module>orion-common</module>
         <module>orion-register</module>
         <module>orion-protocol</module>

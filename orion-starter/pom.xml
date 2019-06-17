@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>orion-all</artifactId>
+    <artifactId>orion-starter</artifactId>
     <groupId>org.orion</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
