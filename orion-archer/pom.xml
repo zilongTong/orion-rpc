@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>org.orion</groupId>
-            <artifactId>orion-register</artifactId>
+            <artifactId>orion-registy-zk-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

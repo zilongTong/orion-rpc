@@ -10,7 +10,7 @@
     <modules>
         <module>orion-starter</module>
         <module>orion-common</module>
-        <module>orion-register</module>
+        <module>orion-registy-zk-starter</module>
         <module>orion-protocol</module>
         <module>orion-ribbon</module>
         <module>orion-archer</module>
