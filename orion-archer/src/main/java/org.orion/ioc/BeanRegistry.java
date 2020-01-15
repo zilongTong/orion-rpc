@@ -23,7 +23,7 @@ import java.util.Set;
 @Slf4j
 public class BeanRegistry implements BeanDefinitionRegistryPostProcessor {
 
-    private static final String ZMLEARM = "org.orion";
+    private static final String ORION = "org.orion";
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -33,7 +33,7 @@ public class BeanRegistry implements BeanDefinitionRegistryPostProcessor {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         // 需要被代理的接口
-        Set<Class<?>> clazzs = ClassUtil.getClasses(ZMLEARM);
+        Set<Class<?>> clazzs = ClassUtil.getClasses(ORION);
         clazzs.forEach(cls -> {
             OrionRemoteClient client = cls.getAnnotation(OrionRemoteClient.class);
             if (client != null) {
