@@ -46,11 +46,11 @@
             <version>16.0.1</version>
         </dependency>
         <!--netty-->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.16.Final</version>
-        </dependency>
+       <dependency>
+  <groupId>io.netty</groupId>
+  <artifactId>netty-all</artifactId>
+  <version>[4.1.42,)</version>
+</dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
